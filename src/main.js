@@ -51,7 +51,7 @@ jQuery(document).ready(function($){
         if($("#gappointments_calendar_slots .time_slot.focus").length === 0)
             $("#gappointments_calendar_slots .time_slot").first().addClass('focus'); // On focus add focus to first time slot if none focused
         window.scrollTo( 0, $($(this).attr('href')).offset().top ); // Scroll the browser to the time slot selector
-    }).attr('aria-labe', gappkn.navTimeLabel).prependTo("#gappointments_calendar"); //Prepend this element to the gappointments calendar
+    }).attr('aria-label', gappkn.navTimeLabel).prependTo("#gappointments_calendar"); //Prepend this element to the gappointments calendar
     
     // Day selector
     $('<a id="gappointments_day_selector" href="#service-working-days" aria-label="Use left/right keys to select day">').on('keydown', function(e){
@@ -67,7 +67,7 @@ jQuery(document).ready(function($){
         e.preventDefault();
         gAppointmentsSelectDay(); // Select the first available day
         window.scrollTo( 0, $($(this).attr('href')).offset().top ); // Scroll to the day selection in calendar
-    }).attr('aria-labe', gappkn.navDayLabel).prependTo("#gappointments_calendar");
+    }).attr('aria-label', gappkn.navDayLabel).prependTo("#gappointments_calendar");
 
     // Month selector
     $('<a id="gappointments_month_selector" href="#gappointments_calendar">').on('keydown', function (e) {
@@ -79,7 +79,7 @@ jQuery(document).ready(function($){
     }).on('focus', function(e){
         e.preventDefault();
         window.scrollTo( 0, $($(this).attr('href')).offset().top ); // Scroll to the month selection in calendar
-    }).attr('aria-labe', gappkn.navMonthLabel).prependTo("#gappointments_calendar");
+    }).attr('aria-label', gappkn.navMonthLabel).prependTo("#gappointments_calendar");
 
     $(document).ajaxComplete(function(e){
         console.log(e);
