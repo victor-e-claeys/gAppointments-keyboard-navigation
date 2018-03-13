@@ -43,37 +43,46 @@ jQuery(document).ready(function($){
         }
         if (e.key === "ArrowDown" || e.key === "ArrowUp"){ // Scroll to the focused time slot when we press the up and down keys
             $($(this).attr('href')).find('.calendar_time_slots').scrollTop( $($(this).attr('href')).find('.calendar_time_slots').scrollTop() + $("#gappointments_calendar_slots .time_slot.focus").parent().position().top - $($(this).attr('href')).find('.calendar_time_slots').outerHeight() / 2 );
+            $(this).attr('aria-label', $("#gappointments_calendar_slots .time_slot.focus").text() ).blur().focus();
             e.preventDefault(); // ... and prevent the default browser behaviour (scrolling the page)
         }
     }).on('focus', function(e){ // Attach focus handler to new anchor tag for time selection
         e.preventDefault();
-        $("#gappointments_calendar_slots .time_slot.focus").removeClass('focus'); // On focus clear currently focused time slot
-        $("#gappointments_calendar_slots .time_slot").first().addClass('focus'); // On focus add focus to first time slot
+        if($("#gappointments_calendar_slots .time_slot.focus").length === 0)
+            $("#gappointments_calendar_slots .time_slot").first().addClass('focus'); // On focus add focus to first time slot if none focused
         window.scrollTo( 0, $($(this).attr('href')).offset().top ); // Scroll the browser to the time slot selector
-    }).prependTo("#gappointments_calendar"); //Prepend this element to the gappointments calendar
+    }).attr('aria-labe', gappkn.navTimeLabel).prependTo("#gappointments_calendar"); //Prepend this element to the gappointments calendar
     
     // Day selector
-    $('<a id="gappointments_day_selector" href="#service-working-days">').on('keydown', function(e){
+    $('<a id="gappointments_day_selector" href="#service-working-days" aria-label="Use left/right keys to select day">').on('keydown', function(e){
         if (e.key === "ArrowRight") {
             gAppointmentsSelectDay('next');
         } else if (e.key === "ArrowLeft") {
             gAppointmentsSelectDay('prev');
         }
+        if(true){
+            $("#gappointments_day_selector:focus").attr('aria-label', $("#gappointments_calendar .day_available.selected").attr('date-go') ).blur().focus();
+        }
     }).on('focus', function(e){
         e.preventDefault();
         gAppointmentsSelectDay(); // Select the first available day
         window.scrollTo( 0, $($(this).attr('href')).offset().top ); // Scroll to the day selection in calendar
-    }).prependTo("#gappointments_calendar");
+    }).attr('aria-labe', gappkn.navDayLabel).prependTo("#gappointments_calendar");
 
     // Month selector
     $('<a id="gappointments_month_selector" href="#gappointments_calendar">').on('keydown', function (e) {
         if (e.key === "ArrowRight") {
-            gAppointmentsSelectMonth('next');
+            gAppointmentsSelectMonth('next', this);
         } else if (e.key === "ArrowLeft") {
-            gAppointmentsSelectMonth('prev');
+            gAppointmentsSelectMonth('prev', this);
         }
     }).on('focus', function(e){
         e.preventDefault();
         window.scrollTo( 0, $($(this).attr('href')).offset().top ); // Scroll to the month selection in calendar
-    }).prependTo("#gappointments_calendar");
+    }).attr('aria-labe', gappkn.navMonthLabel).prependTo("#gappointments_calendar");
+
+    $(document).ajaxComplete(function(e){
+        console.log(e);
+        $("#gappointments_month_selector:focus").attr('aria-label', $("#gappointments_calendar .ga_appointments_calendar_header h3").text()).blur().focus();
+    });
 });
