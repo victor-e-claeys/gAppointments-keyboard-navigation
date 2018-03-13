@@ -27,6 +27,11 @@ jQuery(document).ready(function($){
     $(document).on('click', "#gappointments_calendar .day_available", function(){
         $("#gappointments_day_selector").focus();
     });
+
+    // Focus on our anchor tag to catch keyboard navigation on day selection
+    $(document).on('click', "#gappointments_calendar #gappointments_calendar_slots  .time_slot", function(){
+        $("#gappointments_time_selector").focus();
+    });
     
     // Time selector
     $('<a id="gappointments_time_selector" href="#gappointments_calendar_slots">').on('keydown', function(e){ // Attach keydown handler to new anchor tag for time selection
@@ -41,11 +46,9 @@ jQuery(document).ready(function($){
         } else { // When we press any other key, do nothing
             return;
         }
-        if (e.key === "ArrowDown" || e.key === "ArrowUp"){ // Scroll to the focused time slot when we press the up and down keys
-            $($(this).attr('href')).find('.calendar_time_slots').scrollTop( $($(this).attr('href')).find('.calendar_time_slots').scrollTop() + $("#gappointments_calendar_slots .time_slot.focus").parent().position().top - $($(this).attr('href')).find('.calendar_time_slots').outerHeight() / 2 );
-            $(this).attr('aria-label', $("#gappointments_calendar_slots .time_slot.focus").text() ).blur().focus();
-            e.preventDefault(); // ... and prevent the default browser behaviour (scrolling the page)
-        }
+        e.preventDefault(); // Prevent the default browser behaviour (scrolling the page)
+        $($(this).attr('href')).find('.calendar_time_slots').scrollTop( $($(this).attr('href')).find('.calendar_time_slots').scrollTop() + $("#gappointments_calendar_slots .time_slot.focus").parent().position().top - $($(this).attr('href')).find('.calendar_time_slots').outerHeight() / 2 );
+        $(this).attr('aria-label', $("#gappointments_calendar_slots .time_slot.focus").text() ).blur().focus();
     }).on('focus', function(e){ // Attach focus handler to new anchor tag for time selection
         e.preventDefault();
         if($("#gappointments_calendar_slots .time_slot.focus").length === 0)
