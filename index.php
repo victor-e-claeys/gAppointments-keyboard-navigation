@@ -10,6 +10,6 @@ Author URI: https://www.vincentclaeys.com/
 add_action('wp_enqueue_scripts', 'gappkn_enqueue_scripts');
 
 function gappkn_enqueue_scripts(){
-    wp_enqueue_script('gappkn', plugins_url('dist/main.js', _FILE_), array('jquery'), '1.0', true);
-    wp_enqueue_style('gappkn', plugins_url('dist/main.css', _FILE_));
+    wp_enqueue_script('gappkn', plugins_url('dist/main.js', __FILE__), array('jquery'), '1.0', true);
+    wp_enqueue_style('gappkn', plugins_url('dist/main.css', __FILE__));
 }
