@@ -86,7 +86,6 @@ jQuery(document).ready(function($){
     $('<div class="message" role="status">').prependTo("#gappointments_calendar");
 
     $(document).ajaxComplete(function(e){
-        console.log(e);
-        $("#gappointments_month_selector:focus").siblings('.message').text( $("#gappointments_calendar .ga_appointments_calendar_header h3").text()).blur().focus();
+        $("#gappointments_month_selector:focus").siblings('.message').text( $("#gappointments_calendar .ga_appointments_calendar_header h3").text());
     });
 });
