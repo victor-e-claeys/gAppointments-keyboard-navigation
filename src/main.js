@@ -36,9 +36,9 @@ jQuery(document).ready(function($){
     // Time selector
     $('<a id="gappointments_time_selector" href="#gappointments_calendar_slots">').on('keydown', function(e){ // Attach keydown handler to new anchor tag for time selection
 
-        if (e.key === "ArrowDown") { // When we press the down arrow remove the focus class from the currently focused time slot and add it to the next
+        if (e.key === "ArrowDown" && $("#gappointments_calendar_slots .time_slot.focus").parent().next().length > 0) { // When we press the down arrow remove the focus class from the currently focused time slot and add it to the next
             $("#gappointments_calendar_slots .time_slot.focus").removeClass('focus').parent().next().find('.time_slot').addClass('focus');
-        } else if (e.key === "ArrowUp") { // When we press the up arrow remove the focus class from the currently focused time slot and add it to the previous
+        } else if (e.key === "ArrowUp" && $("#gappointments_calendar_slots .time_slot.focus").parent().prev().length > 0) { // When we press the up arrow remove the focus class from the currently focused time slot and add it to the previous
             $("#gappointments_calendar_slots .time_slot.focus").removeClass('focus').parent().prev().find('.time_slot').addClass('focus');
         } else if (e.key === "Enter"){ // When we press the return key trigger the click event on the currently focused time slot, adding the booking
             $("#gappointments_calendar_slots .time_slot.focus").trigger('click');
