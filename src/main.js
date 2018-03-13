@@ -28,15 +28,14 @@ jQuery(document).ready(function($){
         $("#gappointments_day_selector").focus();
     });
 
-    // Focus on our anchor tag to catch keyboard navigation on day selection
+    // Focus on our anchor tag to catch keyboard navigation on time selection
     $(document).on('click', "#gappointments_calendar #gappointments_calendar_slots  .time_slot", function(){
         $("#gappointments_time_selector").focus();
     });
     
     // Time selector
     $('<a id="gappointments_time_selector" href="#gappointments_calendar_slots">').on('keydown', function(e){ // Attach keydown handler to new anchor tag for time selection
-        
-        
+
         if (e.key === "ArrowDown") { // When we press the down arrow remove the focus class from the currently focused time slot and add it to the next
             $("#gappointments_calendar_slots .time_slot.focus").removeClass('focus').parent().next().find('.time_slot').addClass('focus');
         } else if (e.key === "ArrowUp") { // When we press the up arrow remove the focus class from the currently focused time slot and add it to the previous
@@ -46,9 +45,11 @@ jQuery(document).ready(function($){
         } else { // When we press any other key, do nothing
             return;
         }
-        e.preventDefault(); // Prevent the default browser behaviour (scrolling the page)
-        $($(this).attr('href')).find('.calendar_time_slots').scrollTop( $($(this).attr('href')).find('.calendar_time_slots').scrollTop() + $("#gappointments_calendar_slots .time_slot.focus").parent().position().top - $($(this).attr('href')).find('.calendar_time_slots').outerHeight() / 2 );
-        $(this).attr('aria-label', $("#gappointments_calendar_slots .time_slot.focus").text() ).blur().focus();
+        if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+            e.preventDefault(); // Prevent the default browser behaviour (scrolling the page)
+            $($(this).attr('href')).find('.calendar_time_slots').scrollTop( $($(this).attr('href')).find('.calendar_time_slots').scrollTop() + $("#gappointments_calendar_slots .time_slot.focus").parent().position().top - $($(this).attr('href')).find('.calendar_time_slots').outerHeight() / 2 );
+            $(this).attr('aria-label', $("#gappointments_calendar_slots .time_slot.focus").text() ).blur().focus();
+        }
     }).on('focus', function(e){ // Attach focus handler to new anchor tag for time selection
         e.preventDefault();
         if($("#gappointments_calendar_slots .time_slot.focus").length === 0)
