@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
     });
 
     // Focus on our anchor tag to catch keyboard navigation on time selection
-    $(document).on('click', "#gappointments_calendar #gappointments_calendar_slots  .time_slot", function(){
+    $(document).on('click', "#gappointments_calendar #gappointments_calendar_slots .time_slot", function(){
         $("#gappointments_time_selector").focus();
     });
     
@@ -45,10 +45,10 @@ jQuery(document).ready(function($){
         } else { // When we press any other key, do nothing
             return;
         }
-        if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+        if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter"){
             e.preventDefault(); // Prevent the default browser behaviour (scrolling the page)
             $($(this).attr('href')).find('.calendar_time_slots').scrollTop( $($(this).attr('href')).find('.calendar_time_slots').scrollTop() + $("#gappointments_calendar_slots .time_slot.focus").parent().position().top - $($(this).attr('href')).find('.calendar_time_slots').outerHeight() / 2 );
-            $(this).attr('aria-label', $("#gappointments_calendar_slots .time_slot.focus").text() ).blur().focus();
+            $(this).siblings('.message').text( $("#gappointments_calendar_slots .time_slot.focus").text() );
         }
     }).on('focus', function(e){ // Attach focus handler to new anchor tag for time selection
         e.preventDefault();
@@ -64,9 +64,7 @@ jQuery(document).ready(function($){
         } else if (e.key === "ArrowLeft") {
             gAppointmentsSelectDay('prev');
         }
-        if(true){
-            $("#gappointments_day_selector:focus").attr('aria-label', $("#gappointments_calendar .day_available.selected").attr('date-go') ).blur().focus();
-        }
+        $(this).siblings('.message').text( $("#gappointments_calendar .day_available.selected").attr('date-go') );
     }).on('focus', function(e){
         e.preventDefault();
         gAppointmentsSelectDay(); // Select the first available day
@@ -85,8 +83,10 @@ jQuery(document).ready(function($){
         window.scrollTo( 0, $($(this).attr('href')).offset().top ); // Scroll to the month selection in calendar
     }).attr('aria-label', gappkn.navMonthLabel).prependTo("#gappointments_calendar");
 
+    $('<div class="message" role="status">').prependTo("#gappointments_calendar");
+
     $(document).ajaxComplete(function(e){
         console.log(e);
-        $("#gappointments_month_selector:focus").attr('aria-label', $("#gappointments_calendar .ga_appointments_calendar_header h3").text()).blur().focus();
+        $("#gappointments_month_selector:focus").siblings('.message').text( $("#gappointments_calendar .ga_appointments_calendar_header h3").text()).blur().focus();
     });
 });

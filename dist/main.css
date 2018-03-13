@@ -1,1 +1,1 @@
-#gappointments_calendar #gappointments_month_selector:focus ~ #ga_appointments_calendar .ga_appointments_calendar_header h3{font-weight:bold}#gappointments_calendar #gappointments_calendar_slots .time_slot.focus{background-color:#DDD}
+#gappointments_calendar #gappointments_month_selector:focus ~ #ga_appointments_calendar .ga_appointments_calendar_header h3{font-weight:bold}#gappointments_calendar #gappointments_calendar_slots .time_slot.focus{background-color:#DDD}#gappointments_calendar>a,#gappointments_calendar>.message{display:block;height:0;opacity:0}

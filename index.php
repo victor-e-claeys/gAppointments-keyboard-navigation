@@ -2,7 +2,7 @@
 /*
 Plugin Name: gAppointments Keyboard Navigation
 Description: Enables Keyboard Navigation for the gAppointments plugin
-Version: 1.1.1
+Version: 1.2.0
 Author: Vincent Claeys
 Author URI: https://www.vincentclaeys.com/
 */
